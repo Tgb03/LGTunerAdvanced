@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="../ManifestInfo.props" />
+    
+    <Import Project="../BuildHelper.props" />
+    
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>Latest</LangVersion>
+
+        <AssemblyName>LGTunerAdvanced</AssemblyName>
+        <RootNamespace>$(MSBuildProjectName.Replace(".", "_").Replace(" ", "_").Replace("GTFO_", ""))</RootNamespace>
+
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        
+        <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(TargetFramework.StartsWith('Framework_Her'))">
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+</Project>
