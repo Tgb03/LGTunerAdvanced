@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using LevelGeneration;
+using LevelGeneration.Core;
 
 namespace LGTunerAdvanced.Data;
 
@@ -52,7 +53,7 @@ internal class LoadLevelGenerationData
     }
 
 #nullable enable
-    public static bool TryGrab(LG_Zone zone, out ZoneOverride? zoneOverride)
+    public static bool TryGrabZoneOverride(LG_Zone zone, out ZoneOverride? zoneOverride)
     {
         // TODO: Fix dimensions, right now only works with REALITY dimension level layouts.
 

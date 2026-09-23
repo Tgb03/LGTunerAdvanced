@@ -51,6 +51,17 @@ public static class BuildResetter
     public static void Prefix()
     {
         LG_ZoneJob_CreateExpandFromDataPatch.built_geos.Clear();
+        LG_ZoneJob_CreateExpandFromDataPatch.blocked_expanders.Clear();
         LG_ZoneJob_CreateExpandFromDataPatch.built_geos.Add(new LG_GridPosition(0, 0));
+    }
+}
+
+[HarmonyPatch(typeof(LG_Floor), nameof(LG_Floor.SetupZoneForExpansion))]
+public static class BuildResetterJFAfj
+{
+    [HarmonyPrefix]
+    public static void Prefix(LG_Zone zone, LG_ZoneExpander sourceExpander, LG_Area sourceArea)
+    {
+        Plugin.L.LogError($"LG_Floor.SetupZoneForExpansion ran from {sourceExpander.m_linksFrom.name} to {sourceExpander.m_linksTo.name}");
     }
 }
