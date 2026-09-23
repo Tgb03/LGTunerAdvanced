@@ -28,15 +28,17 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
         ref LG_ZoneExpander buildFromExpander,
         uint seed)
     {
+        Plugin.L.LogWarning($"GTFO would generate from: {buildFromExpander.m_linksFrom.name}");
+
         if (LoadLevelGenerationData.TryGrabZoneOverride(zone, out ZoneOverride zoneOverride))
         {
-            if (GrabExpander(zone, zoneOverride, out LG_ZoneExpander newExpander))
+            if (GrabExpander(zone, zoneOverride, out LG_ZoneExpander newExpander, out LG_Area newBuildFromArea))
             {
                 blocked_expanders.Add(newExpander.Pointer);
                 Plugin.L.LogMessage("   Succeeded in finding connection for area");
 
                 buildFromExpander = newExpander;
-                buildFromArea = buildFromExpander.m_linksFrom;
+                buildFromArea = newBuildFromArea;
             }
         }
     }
@@ -64,13 +66,14 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
         }
     }
 
-    private static bool GrabExpander(LG_Zone zone, ZoneOverride zoneOverride, out LG_ZoneExpander lgZoneExpander) 
+    private static bool GrabExpander(LG_Zone zone, ZoneOverride zoneOverride, out LG_ZoneExpander lgZoneExpander, out LG_Area buildFromArea) 
     {
         if (zone == null || zoneOverride == null)
         {
             Plugin.L.LogError($"   Something ended up null and could not proceed.");
 
             lgZoneExpander = null;
+            buildFromArea = null;
             return false; 
         }
 
@@ -79,6 +82,7 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             Plugin.L.LogError($"   zone.m_areas.Count > zoneOverride.AreaOverrides.Count: {zone.m_areas.Count} > {zoneOverride.AreaOverrides.Count}");
 
             lgZoneExpander = null;
+            buildFromArea = null;
             return false;
         }
 
@@ -107,12 +111,14 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
                     if (expander.m_dir == dir) {
                         built_geos.Add(areaOverride.TileCellPosition);
                         lgZoneExpander = expander;
+                        buildFromArea = previous_area;
                         return true;
                     }
                 }
 
                 Plugin.L.LogError("Failed to find expander for plug.");
                 lgZoneExpander = null;
+                buildFromArea = null;
                 return false;
             } 
 
@@ -135,12 +141,14 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
                 if (expander.GetOppositeArea(previous_area) == current_area)
                 {
                     lgZoneExpander = expander;
+                    buildFromArea = previous_area;
                     return true;
                 }
             }
 
             Plugin.L.LogError($"Failed to find in zone expander for {current_area.name}");
             lgZoneExpander = null;
+            buildFromArea = null;
             return false;
 #nullable disable
         }
@@ -149,6 +157,7 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
         }
 
         lgZoneExpander = null;
+        buildFromArea = null;
         return false;
     }
 
