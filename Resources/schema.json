@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LevelGenerationOverride",
+  "type": "object",
+  "definitions": {
+    "LG_GridPosition": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "integer" },
+        "z": { "type": "integer" }
+      },
+      "required": ["x", "z"],
+      "additionalProperties": false
+    },
+    "AreaOverride": {
+      "type": "object",
+      "properties": {
+        "PreviousCellPosition": { "$ref": "#/definitions/LG_GridPosition" },
+        "PreviousCellInternalAreaID": { "type": "integer" },
+        "TileCellPosition": { "$ref": "#/definitions/LG_GridPosition" },
+        "InternalAreaID": { "type": "integer" }
+      },
+      "required": [
+        "PreviousCellPosition",
+        "PreviousCellInternalAreaID",
+        "TileCellPosition",
+        "InternalAreaID"
+      ],
+      "additionalProperties": false
+    },
+    "ZoneOverride": {
+      "type": "object",
+      "properties": {
+        "AreaOverrides": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/AreaOverride" }
+        }
+      },
+      "required": ["AreaOverrides"],
+      "additionalProperties": false
+    },
+    "GeoOverride": {
+      "type": "object",
+      "properties": {
+        "Position": { "$ref": "#/definitions/LG_GridPosition" },
+        "Geomorph": { "type": "string" },
+        "Rotation": { "type": "number" }
+      },
+      "required": ["Position", "Geomorph", "Rotation"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "LevelLayoutID": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ZoneOverrides": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ZoneOverride" }
+    },
+    "GeoOverrides": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/GeoOverride" }
+    }
+  },
+  "required": ["LevelLayoutID", "ZoneOverrides", "GeoOverrides"],
+  "additionalProperties": true
+}
