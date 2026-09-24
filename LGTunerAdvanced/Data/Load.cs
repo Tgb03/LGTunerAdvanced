@@ -54,7 +54,10 @@ internal class LoadLevelGenerationData
 
     private static uint GetLayoutID(LG_Zone zone)
     {
-        // TODO: Fix dimensions, right now only works with REALITY dimension level layouts.
+        if (!zone.IsMainDimension)
+        {
+            return zone.Dimension.DimensionData.LevelLayoutData;
+        }
 
         return zone.Layer.m_type switch
         {
