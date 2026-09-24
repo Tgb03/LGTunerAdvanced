@@ -26,7 +26,6 @@ internal static class Inject_BuildGeomorph
         LG_Zone zone
         )
     {
-        Plugin.L.LogWarning($"Got align vector: {alignVector.x}, {alignVector.y}, {alignVector.z}");
         forceAlignToVector = alignVector != Vector3.zero;
 
         if (tile == null) { return; }
@@ -36,7 +35,6 @@ internal static class Inject_BuildGeomorph
         var tempPrefab = AssetAPI.GetLoadedAsset(geoOverride.Geomorph)?.Cast<GameObject>(); 
         if (tempPrefab != null)
         {
-            Plugin.L.LogMessage($" - tile overriden! {tempPrefab.name}");
             tilePrefab = tempPrefab;
         }
 

@@ -28,8 +28,6 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
         ref LG_ZoneExpander buildFromExpander,
         uint seed)
     {
-        Plugin.L.LogWarning($"GTFO would generate from: {buildFromExpander.m_linksFrom.name}");
-
         if (LoadLevelGenerationData.TryGrabZoneOverride(zone, out ZoneOverride zoneOverride))
         {
             if (GrabExpander(zone, zoneOverride, out LG_ZoneExpander newExpander, out LG_Area newBuildFromArea))
@@ -54,8 +52,6 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
     {
         if (LoadLevelGenerationData.TryGrabZoneOverride(zone, out ZoneOverride zoneOverride))
         {
-            Plugin.L.LogMessage($"ExpandZone in {zone.ID} originally returned {__result}, status: {zoneOverride.AreaOverrides.Count} vs {zone.m_areas.Count}.");
-
             if (zone.m_areas.Count < zoneOverride.AreaOverrides.Count)
             {
                 __result = LG_ZoneJob_CreateExpandFromData.CoverageResult.NotEnough;
@@ -88,7 +84,6 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
 
         try
         {
-            Plugin.L.LogWarning($"Zone AREA COUNT NOW: {zone.m_areas.Count}");
             AreaOverride areaOverride = zoneOverride.AreaOverrides[zone.m_areas.Count];
 
 #nullable enable
@@ -125,18 +120,10 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             LG_Cell current_cell = zone.Dimension.Grid.GetCell(GetRealPos(areaOverride.TileCellPosition));
             LG_Area current_area = current_cell.m_grouping.m_geoRoot.m_areas[areaOverride.InternalAreaID];
 
-            foreach (var p in blocked_expanders)
-            {
-                Plugin.L.LogError($"        {p}");
-            }
-            Plugin.L.LogError("");
-
             foreach (var expander in previous_area.m_zoneExpanders)
             {
                 if (blocked_expanders.Contains(expander.Pointer)) { continue; }
                 if (expander.m_isZoneBuildBlocked) { continue; }
-
-                Plugin.L.LogDebug($"area is {previous_area.name} check: {expander.m_linksFrom.name} and {expander.m_linksTo.name} with target {current_area.name}");
 
                 if (expander.GetOppositeArea(previous_area) == current_area)
                 {
