@@ -17,6 +17,7 @@ internal class LevelGenerationOverride
 {
     public uint LevelLayoutID;
     public List<ZoneOverride> ZoneOverrides;
+    public List<GeoOverride> GeoOverrides;
 }
 
 [Serializable]
@@ -32,5 +33,12 @@ internal class AreaOverride
     public int PreviousCellInternalAreaID;
     public LG_GridPosition TileCellPosition;
     public int InternalAreaID;
+}
+
+[Serializable]
+internal class GeoOverride
+{
+    public LG_GridPosition Position;
     public string Geomorph;
+    public float Rotation;
 }

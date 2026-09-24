@@ -52,18 +52,23 @@ internal class LoadLevelGenerationData
         }
     }
 
-#nullable enable
-    public static bool TryGrabZoneOverride(LG_Zone zone, out ZoneOverride? zoneOverride)
+    private static uint GetLayoutID(LG_Zone zone)
     {
         // TODO: Fix dimensions, right now only works with REALITY dimension level layouts.
 
-        uint LevelLayoutID = zone.Layer.m_type switch
+        return zone.Layer.m_type switch
         {
             LG_LayerType.MainLayer => Builder.LevelGenExpedition.LevelLayoutData,
             LG_LayerType.SecondaryLayer => Builder.LevelGenExpedition.SecondaryLayout,
             LG_LayerType.ThirdLayer => Builder.LevelGenExpedition.ThirdLayout,
             _ => throw new ArgumentException($"LG_LayerType of LG_Zone with id: {zone.ID} is out of bounds.")
         };
+    }
+
+#nullable enable
+    public static bool TryGrabZoneOverride(LG_Zone zone, out ZoneOverride? zoneOverride)
+    {
+        uint LevelLayoutID = GetLayoutID(zone);
 
         if (levelGenerationOverrides.TryGetValue(LevelLayoutID, out LevelGenerationOverride? levelGenerationOverride))
         {
@@ -81,6 +86,26 @@ internal class LoadLevelGenerationData
         }
 
         return zoneOverride != null;
+    }
+
+    public static bool TryGrabGeoOverride(LG_Zone zone, LG_GridPosition position, out GeoOverride? geoOverride)
+    {
+        uint LevelLayoutID = GetLayoutID(zone);
+
+        if (levelGenerationOverrides.TryGetValue(LevelLayoutID, out LevelGenerationOverride? levelGenerationOverride))
+        {
+            foreach (var attempt in levelGenerationOverride.GeoOverrides)
+            {
+                if (attempt.Position.x == position.x && attempt.Position.z == position.z)
+                {
+                    geoOverride = attempt;
+                    return true;
+                }
+            }
+        }
+
+        geoOverride = null;
+        return false;
     }
 #nullable disable
 }
