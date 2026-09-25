@@ -18,6 +18,8 @@ internal class LoadLevelGenerationData
     {
         PropertyNameCaseInsensitive = true,
         IncludeFields = true,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        AllowTrailingCommas = true,
     };
 
     public static void LoadDictionary()
@@ -35,6 +37,8 @@ internal class LoadLevelGenerationData
 
         foreach (string fileName in Directory.GetFiles(path)) {
             if (fileName.EndsWith("schema.json")) { continue; }
+            string ext = Path.GetExtension(fileName).ToLowerInvariant();
+            if (ext != ".json" && ext != ".jsonc") { continue; }
 
             try
             {
