@@ -99,7 +99,7 @@ internal class LoadLevelGenerationData
         {
             foreach (var attempt in levelGenerationOverride.GeoOverrides)
             {
-                if (attempt.Position.x == position.x && attempt.Position.z == position.z)
+                if (attempt.Position.x == position.x - 20 && attempt.Position.z == position.z - 20)
                 {
                     geoOverride = attempt;
                     return true;
