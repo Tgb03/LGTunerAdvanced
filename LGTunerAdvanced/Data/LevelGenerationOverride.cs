@@ -31,8 +31,7 @@ internal class AreaOverride
 {
     public LG_GridPosition PreviousCellPosition;
     public int PreviousCellInternalAreaID;
-    public LG_GridPosition TileCellPosition;
-    public int InternalAreaID;
+    public int LG_ExpanderID;
 }
 
 [Serializable]

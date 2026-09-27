@@ -91,52 +91,27 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             LG_Cell previous_cell = zone.Dimension.Grid.GetCell(GetRealPos(areaOverride.PreviousCellPosition));
             LG_Area previous_area = previous_cell.m_grouping.m_geoRoot.m_areas[areaOverride.PreviousCellInternalAreaID];
 
-            // check if the next tile is not setup
-            if (!built_geos.Contains(areaOverride.TileCellPosition))
+            if (areaOverride.LG_ExpanderID >= previous_area.m_zoneExpanders.Count)
             {
-                LG_PlugDir dir = GetDir(areaOverride.PreviousCellPosition, areaOverride.TileCellPosition);
-
-                // greenlight first case that builds into this tile
-                foreach (var expander in previous_area.m_geomorph.m_plugs)
-                {
-                    if (blocked_expanders.Contains(expander.Pointer)) { continue; }
-                    
-                    // I WANT:
-                    // previous_cell.m_grouping.m_geoRoot.m_plugs[0].
-                    if (expander.m_dir == dir) {
-                        built_geos.Add(areaOverride.TileCellPosition);
-                        lgZoneExpander = expander;
-                        buildFromArea = previous_area;
-                        return true;
-                    }
-                }
-
-                Plugin.L.LogError("Failed to find expander for plug.");
+                Plugin.L.LogError($"   areaOverride.LG_ExpanderID >= previous_area.m_zoneExpanders.Count: {areaOverride.LG_ExpanderID} > {previous_area.m_zoneExpanders.Count}");
+                
                 lgZoneExpander = null;
                 buildFromArea = null;
                 return false;
-            } 
-
-            LG_Cell current_cell = zone.Dimension.Grid.GetCell(GetRealPos(areaOverride.TileCellPosition));
-            LG_Area current_area = current_cell.m_grouping.m_geoRoot.m_areas[areaOverride.InternalAreaID];
-
-            foreach (var expander in previous_area.m_zoneExpanders)
-            {
-                if (blocked_expanders.Contains(expander.Pointer)) { continue; }
-                if (expander.m_isZoneBuildBlocked) { continue; }
-
-                if (expander.GetOppositeArea(previous_area) == current_area)
-                {
-                    lgZoneExpander = expander;
-                    buildFromArea = previous_area;
-                    return true;
-                }
             }
 
-            Plugin.L.LogError($"Failed to find in zone expander for {current_area.name}");
-            lgZoneExpander = null;
-            buildFromArea = null;
-            return false;
+            if (blocked_expanders.Contains(previous_area.m_zoneExpanders[areaOverride.LG_ExpanderID].Pointer))
+            {
+                Plugin.L.LogError($"   LG_ZoneExpander was already parsed and blocked. This means it cannot be reused");
+
+                lgZoneExpander = null;
+                buildFromArea = null;
+                return false;
+            }
+
+            lgZoneExpander = previous_area.m_zoneExpanders[areaOverride.LG_ExpanderID];
+            buildFromArea = previous_area;
+            return true;
 #nullable disable
         }
         catch (Exception e) {

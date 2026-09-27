@@ -41,7 +41,7 @@ General format:
 						"x": 0,
 						"z": 0
 					},
-					"InternalAreaID": 0
+					"LG_ExpanderID": 0
         },
         {
           // the previous room we want to start from is in (0, 0)
@@ -56,8 +56,8 @@ General format:
             "x": 0,
             "z": 1
           },
-          // we want coincidentally the area with ID 0 in the geomorph
-          "InternalAreaID": 0
+          // we want to use the LG_Expander with id 0 in the array.
+          "LG_ExpanderID": 0
         },
         {
           // we know generate from the (0, 1) tile
@@ -67,18 +67,13 @@ General format:
           },
           // area ID is 0 as we only have 1 room generated in this geomorph so far
           "PreviousCellInternalAreaID": 0,
-          // we generate in the same tile.
-          "TileCellPosition": {
-            "x": 0,
-            "z": 1
-          },
-          // but this time we care about internal ID 7.
-          "InternalAreaID": 7
+          // we want to use the LG_Expander with id 0 again in the array
+          "LG_ExpanderID": 0
         }
 			]
 		}
 	],
-	// this feature is not functional yet but this will be the format:
+	// here we override the geomorphs every time they spawn
 	"GeoOverrides": [
     {
       // tile position where you need the overwrite
