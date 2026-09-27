@@ -59,7 +59,7 @@ General format:
           },
           // area ID is 0 as we only have 1 room generated in this geomorph so far
           "PreviousCellInternalAreaID": 5,
-          // we want to use the LG_Expander with id 0 again in the array
+          // we want to use the LG_Expander with id 1 this time to generate next zone.
           "LG_ExpanderID": 1
         }
       ]
