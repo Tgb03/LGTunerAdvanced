@@ -25,23 +25,20 @@ General format:
 
 ```json
 {
-	"LevelLayoutID": 495148404 // R1A1
-	"ZoneOverrides": [
-		{
-			// override in first generated zone in this level layout
-			"AreaOverrides": [
-				{
-				  // this one gets ignored as it is the first zone of the dimension
-					"PreviousCellPosition": {
-						"x": 0,
-						"z": 0
-					},
-					"PreviousCellInternalAreaID": 0,
-					"TileCellPosition": {
-						"x": 0,
-						"z": 0
-					},
-					"LG_ExpanderID": 0
+  "$schema": "schema.json",
+  "LevelLayoutID": 495148404, // R1A1
+  "ZoneOverrides": [
+    {
+      // override in first generated zone in this level layout
+      "AreaOverrides": [
+        {
+          // this one gets ignored as it is the first zone of the dimension
+          "PreviousCellPosition": {
+            "x": 0,
+            "z": 0
+          },
+          "PreviousCellInternalAreaID": 0,
+          "LG_ExpanderID": 0
         },
         {
           // the previous room we want to start from is in (0, 0)
@@ -50,12 +47,7 @@ General format:
             "z": 0
           },
           // said geomorph also only has 1 area which means internal ID is 0
-          "PreviousCellInternalAreaID": 0,
-          // Tile cell position is 0, 1
-          "TileCellPosition": {
-            "x": 0,
-            "z": 1
-          },
+          "PreviousCellInternalAreaID": 5,
           // we want to use the LG_Expander with id 0 in the array.
           "LG_ExpanderID": 0
         },
@@ -66,15 +58,15 @@ General format:
             "z": 1
           },
           // area ID is 0 as we only have 1 room generated in this geomorph so far
-          "PreviousCellInternalAreaID": 0,
+          "PreviousCellInternalAreaID": 5,
           // we want to use the LG_Expander with id 0 again in the array
-          "LG_ExpanderID": 0
+          "LG_ExpanderID": 1
         }
-			]
-		}
-	],
-	// here we override the geomorphs every time they spawn
-	"GeoOverrides": [
+      ]
+    }
+  ],
+  // here we override the geomorphs every time they spawn
+  "GeoOverrides": [
     {
       // tile position where you need the overwrite
       "Position": {

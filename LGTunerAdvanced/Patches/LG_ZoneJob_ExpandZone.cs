@@ -73,7 +73,7 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             return false; 
         }
 
-        if (zone.m_areas.Count >= zoneOverride.AreaOverrides.Count)
+        if (zone.m_areas.Count < 0 || zone.m_areas.Count >= zoneOverride.AreaOverrides.Count)
         {
             Plugin.L.LogError($"   zone.m_areas.Count > zoneOverride.AreaOverrides.Count: {zone.m_areas.Count} > {zoneOverride.AreaOverrides.Count}");
 
@@ -91,7 +91,7 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             LG_Cell previous_cell = zone.Dimension.Grid.GetCell(GetRealPos(areaOverride.PreviousCellPosition));
             LG_Area previous_area = previous_cell.m_grouping.m_geoRoot.m_areas[areaOverride.PreviousCellInternalAreaID];
 
-            if (areaOverride.LG_ExpanderID >= previous_area.m_zoneExpanders.Count)
+            if (areaOverride.LG_ExpanderID < 0 || areaOverride.LG_ExpanderID >= previous_area.m_zoneExpanders.Count)
             {
                 Plugin.L.LogError($"   areaOverride.LG_ExpanderID >= previous_area.m_zoneExpanders.Count: {areaOverride.LG_ExpanderID} > {previous_area.m_zoneExpanders.Count}");
                 
