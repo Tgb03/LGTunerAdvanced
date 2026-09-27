@@ -123,31 +123,6 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
         return false;
     }
 
-    private static bool PosEquals(LG_GridPosition pos1, LG_GridPosition pos2) {
-        return pos1.x == pos2.x && pos1.z == pos2.z;
-    }
-
-    private static LG_PlugDir GetDir(LG_GridPosition start, LG_GridPosition end) {
-        if (end.x > start.x && end.z == start.z) {
-            return LG_PlugDir.Right;
-        }
-
-        if (end.x < start.x && end.z == start.z)
-        {
-            return LG_PlugDir.Left;
-        }
-
-        if (end.x == start.x && end.z > start.z) {
-            return LG_PlugDir.Up;
-        }
-
-        if (end.x == start.x && end.z < start.z) {
-            return LG_PlugDir.Down;
-        }
-
-        return LG_PlugDir.NotDefined;
-    }
-
     private static LG_GridPosition GetRealPos(LG_GridPosition position)
     {
         position.x += 20;
