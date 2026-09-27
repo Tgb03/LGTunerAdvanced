@@ -17,14 +17,12 @@
       "properties": {
         "PreviousCellPosition": { "$ref": "#/definitions/LG_GridPosition" },
         "PreviousCellInternalAreaID": { "type": "integer" },
-        "TileCellPosition": { "$ref": "#/definitions/LG_GridPosition" },
-        "InternalAreaID": { "type": "integer" }
+        "LG_ExpanderID": { "type": "integer" }
       },
       "required": [
         "PreviousCellPosition",
         "PreviousCellInternalAreaID",
-        "TileCellPosition",
-        "InternalAreaID"
+        "LG_ExpanderID"
       ],
       "additionalProperties": false
     },
