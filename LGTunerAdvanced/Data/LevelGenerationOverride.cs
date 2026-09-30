@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirNavigation;
+using Expedition;
 using GameData;
 using LevelGeneration;
 using LevelGeneration.Core;
@@ -18,6 +19,7 @@ internal class LevelGenerationOverride
     public uint LevelLayoutID;
     public List<ZoneOverride> ZoneOverrides;
     public List<GeoOverride> GeoOverrides;
+    public List<Complex> ExtraComplexResourceToLoad;
 }
 
 [Serializable]

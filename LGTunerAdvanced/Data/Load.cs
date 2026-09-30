@@ -22,6 +22,8 @@ internal class LoadLevelGenerationData
         AllowTrailingCommas = true,
     };
 
+    private static LevelGenerationOverride lastQueried = null;
+
     public static void LoadDictionary()
     {
         string path = BepInEx.Paths.PluginPath +
@@ -86,6 +88,7 @@ internal class LoadLevelGenerationData
             }
 
             zoneOverride = levelGenerationOverride.ZoneOverrides[zone.IDinLayer];
+            lastQueried = levelGenerationOverride;
         }
         else
         {
@@ -106,6 +109,7 @@ internal class LoadLevelGenerationData
                 if (attempt.Position.x == position.x - 20 && attempt.Position.z == position.z - 20)
                 {
                     geoOverride = attempt;
+                    lastQueried = levelGenerationOverride;
                     return true;
                 }
             }
@@ -113,6 +117,12 @@ internal class LoadLevelGenerationData
 
         geoOverride = null;
         return false;
+    }
+
+    public static bool TryGrabLastQueried(out LevelGenerationOverride? levelOverride)
+    {
+        levelOverride = lastQueried;
+        return levelOverride != null;
     }
 #nullable disable
 }

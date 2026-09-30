@@ -78,6 +78,13 @@ General format:
       // geomorph intended to be used
       "Geomorph": "Assets/AssetPrefabs/Complex/Mining/Geomorphs/Storage/geo_64x64_mining_storage_HA_06.prefab"
     }
+  ],
+  // here we tell the game to load ALL the different geomorphs.
+  // exact same behaviour as LGTuner
+  "ExtraComplexResourceToLoad": [
+    "Mining",
+    "Service",
+    "Tech"
   ]
 }
 ```
