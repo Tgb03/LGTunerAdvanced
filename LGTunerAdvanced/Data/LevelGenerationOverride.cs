@@ -17,15 +17,15 @@ namespace LGTunerAdvanced.Data;
 internal class LevelGenerationOverride
 {
     public uint LevelLayoutID;
-    public List<ZoneOverride> ZoneOverrides;
-    public List<GeoOverride> GeoOverrides;
-    public List<Complex> ExtraComplexResourceToLoad;
+    public List<ZoneOverride> ZoneOverrides = [];
+    public List<GeoOverride> GeoOverrides = [];
+    public List<Complex> ExtraComplexResourceToLoad = [];
 }
 
 [Serializable]
 internal class ZoneOverride
 {
-    public List<AreaOverride> AreaOverrides;
+    public List<AreaOverride> AreaOverrides = [];
 }
 
 [Serializable]
