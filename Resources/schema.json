@@ -1,23 +1,73 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "LevelGenerationOverride",
   "type": "object",
-  "definitions": {
-    "LG_GridPosition": {
+  "properties": {
+    "LevelLayoutID": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "ZoneOverrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ZoneOverride"
+      },
+      "default": []
+    },
+    "GeoOverrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GeoOverride"
+      },
+      "default": []
+    },
+    "ExtraComplexResourceToLoad": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Complex"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "LevelLayoutID",
+    "ZoneOverrides",
+    "GeoOverrides",
+    "ExtraComplexResourceToLoad"
+  ],
+  "additionalProperties": false,
+
+  "$defs": {
+    "ZoneOverride": {
       "type": "object",
       "properties": {
-        "x": { "type": "integer" },
-        "z": { "type": "integer" }
+        "AreaOverrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AreaOverride"
+          },
+          "default": []
+        }
       },
-      "required": ["x", "z"],
+      "required": [
+        "AreaOverrides"
+      ],
       "additionalProperties": false
     },
+
     "AreaOverride": {
       "type": "object",
       "properties": {
-        "PreviousCellPosition": { "$ref": "#/definitions/LG_GridPosition" },
-        "PreviousCellInternalAreaID": { "type": "integer" },
-        "LG_ExpanderID": { "type": "integer" }
+        "PreviousCellPosition": {
+          "$ref": "#/$defs/LG_GridPosition"
+        },
+        "PreviousCellInternalAreaID": {
+          "type": "integer"
+        },
+        "LG_ExpanderID": {
+          "type": "integer"
+        }
       },
       "required": [
         "PreviousCellPosition",
@@ -26,42 +76,52 @@
       ],
       "additionalProperties": false
     },
-    "ZoneOverride": {
-      "type": "object",
-      "properties": {
-        "AreaOverrides": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/AreaOverride" }
-        }
-      },
-      "required": ["AreaOverrides"],
-      "additionalProperties": false
-    },
+
     "GeoOverride": {
       "type": "object",
       "properties": {
-        "Position": { "$ref": "#/definitions/LG_GridPosition" },
-        "Geomorph": { "type": "string" },
-        "Rotation": { "type": "number" }
+        "Position": {
+          "$ref": "#/$defs/LG_GridPosition"
+        },
+        "Geomorph": {
+          "type": "string"
+        },
+        "Rotation": {
+          "type": "number"
+        }
       },
-      "required": ["Position", "Geomorph", "Rotation"],
+      "required": [
+        "Position",
+        "Geomorph",
+        "Rotation"
+      ],
       "additionalProperties": false
-    }
-  },
-  "properties": {
-    "LevelLayoutID": {
-      "type": "integer",
-      "minimum": 0
     },
-    "ZoneOverrides": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/ZoneOverride" }
+
+    "LG_GridPosition": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "z": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x",
+        "z"
+      ],
+      "additionalProperties": false
     },
-    "GeoOverrides": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/GeoOverride" }
+
+    "Complex": {
+      "type": "string",
+      "enum": [
+        "Mining",
+        "Service",
+        "Tech"
+      ]
     }
-  },
-  "required": ["LevelLayoutID", "ZoneOverrides", "GeoOverrides"],
-  "additionalProperties": true
+  }
 }
