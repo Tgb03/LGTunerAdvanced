@@ -24,6 +24,11 @@ internal class LoadLevelGenerationData
 
     private static LevelGenerationOverride lastQueried = null;
 
+    public static void Reset()
+    {
+        lastQueried = null;
+    }
+
     public static void LoadDictionary()
     {
         string path = BepInEx.Paths.PluginPath +

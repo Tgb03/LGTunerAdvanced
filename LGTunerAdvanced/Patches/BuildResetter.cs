@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using LevelGeneration.Core;
 using LevelGeneration;
+using LGTunerAdvanced.Data;
 
 namespace LGTunerAdvanced.Patches;
 
@@ -18,5 +19,6 @@ public static class BuildResetter
         LG_ZoneJob_CreateExpandFromDataPatch.built_geos.Clear();
         LG_ZoneJob_CreateExpandFromDataPatch.blocked_expanders.Clear();
         LG_ZoneJob_CreateExpandFromDataPatch.built_geos.Add(new LG_GridPosition(0, 0));
+        LoadLevelGenerationData.Reset();
     }
 }
