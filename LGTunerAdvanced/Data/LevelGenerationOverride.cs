@@ -42,4 +42,5 @@ internal class GeoOverride
     public LG_GridPosition Position;
     public string Geomorph;
     public float Rotation;
+    public int Altitude;
 }
