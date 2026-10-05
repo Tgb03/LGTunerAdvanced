@@ -20,6 +20,20 @@ internal class LevelGenerationOverride
     public List<ZoneOverride> ZoneOverrides = [];
     public List<GeoOverride> GeoOverrides = [];
     public List<Complex> ExtraComplexResourceToLoad = [];
+
+    public bool TryGrabGeoAtPos(LG_GridPosition position, out GeoOverride result)
+    {
+        foreach (var geoOverride in GeoOverrides)
+        {
+            if (geoOverride.Position.x == position.x && geoOverride.Position.z == position.z) {
+                result = geoOverride;
+                return true;
+            }
+        }
+
+        result = null;
+        return false;
+    }
 }
 
 [Serializable]

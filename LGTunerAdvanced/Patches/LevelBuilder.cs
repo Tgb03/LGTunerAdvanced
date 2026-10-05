@@ -89,7 +89,8 @@ internal static class Inject_BuildGeomorph
     private static void Post_GetTilePosition(LG_Tile tile, LG_Floor floor, int dimensionIndex, ref Vector3 __result)
     {
         if (floor.allZones.Count == 0 || tile == null || tile.m_shape == null) { return; }
-        if (!LoadLevelGenerationData.TryGrabGeoOverride(floor.allZones[^1], tile.m_shape.m_gridPosition, out GeoOverride geoOverride)) return;
+        if (!LoadLevelGenerationData.TryGrabLastQueried(out LevelGenerationOverride levelOverride)) return;
+        if (!levelOverride.TryGrabGeoAtPos(tile.m_shape.m_gridPosition, out GeoOverride geoOverride)) return;
 
         uint complexResourceDatablockID = RundownManager.ActiveExpedition.Expedition.ComplexResourceData;
         ComplexResourceSetDataBlock complexResource = ComplexResourceSetDataBlock.GetBlock(complexResourceDatablockID);
