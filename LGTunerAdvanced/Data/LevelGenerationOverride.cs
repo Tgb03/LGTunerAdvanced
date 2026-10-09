@@ -55,6 +55,15 @@ internal class GeoOverride
 {
     public LG_GridPosition Position;
     public string Geomorph;
-    public float Rotation;
+    public GeoRotation Rotation;
     public int Altitude;
+}
+
+[Serializable]
+internal enum GeoRotation
+{
+    Forwards,
+    Right,
+    Backwards,
+    Left,
 }

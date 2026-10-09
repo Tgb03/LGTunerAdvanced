@@ -79,7 +79,15 @@ internal static class Inject_BuildGeomorph
             return;
         }
 
-        tileObject.transform.rotation = Quaternion.Euler(0, geoOverride.Rotation, 0);
+        float angle = geoOverride.Rotation switch { 
+            GeoRotation.Forwards => 0, 
+            GeoRotation.Right => 90, 
+            GeoRotation.Backwards => 180, 
+            GeoRotation.Left => 270,
+            _ => 0,
+        };
+
+        tileObject.transform.rotation = Quaternion.Euler(0, angle, 0);
         __result.SetPlaced();
     }
 
