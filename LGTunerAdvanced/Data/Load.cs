@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using LevelGeneration;
 using LevelGeneration.Core;
@@ -20,13 +21,14 @@ internal class LoadLevelGenerationData
         IncludeFields = true,
         ReadCommentHandling = JsonCommentHandling.Skip,
         AllowTrailingCommas = true,
+        Converters = { new JsonStringEnumConverter() }
     };
 
     private static LevelGenerationOverride lastQueried = null;
 
-    public static void Reset()
+    public static void SetLayoutID(uint id)
     {
-        lastQueried = null;
+        lastQueried = levelGenerationOverrides[id];
     }
 
     public static void LoadDictionary()
@@ -111,6 +113,7 @@ internal class LoadLevelGenerationData
         {
             foreach (var attempt in levelGenerationOverride.GeoOverrides)
             {
+                // Plugin.L.LogMessage($"Attempting to get: {position.x - 20} {position.z - 20} vs {attempt.Position.x} {attempt.Position.z}");
                 if (attempt.Position.x == position.x - 20 && attempt.Position.z == position.z - 20)
                 {
                     geoOverride = attempt;

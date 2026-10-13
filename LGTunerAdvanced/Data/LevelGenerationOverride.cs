@@ -25,7 +25,7 @@ internal class LevelGenerationOverride
     {
         foreach (var geoOverride in GeoOverrides)
         {
-            if (geoOverride.Position.x == position.x && geoOverride.Position.z == position.z) {
+            if (geoOverride.Position.x == position.x - 20 && geoOverride.Position.z == position.z - 20) {
                 result = geoOverride;
                 return true;
             }

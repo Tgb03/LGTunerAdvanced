@@ -20,7 +20,11 @@ internal class LoadComplexShard
     private static void Prefix(LG_LoadComplexDataSetResourcesJob __instance)
     {
         if (__instance.m_loadingStarted) return;
-        if (!LoadLevelGenerationData.TryGrabLastQueried(out LevelGenerationOverride levelOverride)) return;
+        if (!LoadLevelGenerationData.TryGrabLastQueried(out LevelGenerationOverride levelOverride))
+        {
+            Plugin.L.LogError("Failed to find levelOverride, nothing was queried");
+            return;
+        }
 
         foreach (var complex in levelOverride.ExtraComplexResourceToLoad)
         {
