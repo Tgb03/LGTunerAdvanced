@@ -3,42 +3,101 @@
   "title": "LevelGenerationOverride",
   "type": "object",
   "properties": {
+    "GeoOverrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GeoOverride"
+      }
+    },
     "LevelLayoutID": {
       "type": "integer",
-      "minimum": 0,
-      "maximum": 4294967295
+      "format": "uint32",
+      "minimum": 0
     },
     "ZoneOverrides": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/ZoneOverride"
-      },
-      "default": []
-    },
-    "GeoOverrides": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/GeoOverride"
-      },
-      "default": []
-    },
-    "ExtraComplexResourceToLoad": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/Complex"
-      },
-      "default": []
+      }
     }
   },
   "required": [
     "LevelLayoutID",
     "ZoneOverrides",
-    "GeoOverrides",
-    "ExtraComplexResourceToLoad"
+    "GeoOverrides"
   ],
-  "additionalProperties": true,
-
   "$defs": {
+    "AreaOverride": {
+      "type": "object",
+      "properties": {
+        "LG_ExpanderID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PreviousCellInternalAreaID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PreviousCellPosition": {
+          "$ref": "#/$defs/LGGridPosition"
+        }
+      },
+      "required": [
+        "PreviousCellPosition",
+        "PreviousCellInternalAreaID",
+        "LG_ExpanderID"
+      ]
+    },
+    "GeoOverride": {
+      "type": "object",
+      "properties": {
+        "Altitude": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Geomorph": {
+          "type": "string"
+        },
+        "Position": {
+          "$ref": "#/$defs/LGGridPosition"
+        },
+        "Rotation": {
+          "$ref": "#/$defs/GeoRotation"
+        }
+      },
+      "required": [
+        "Position",
+        "Geomorph",
+        "Rotation",
+        "Altitude"
+      ]
+    },
+    "GeoRotation": {
+      "type": "string",
+      "enum": [
+        "Forwards",
+        "Right",
+        "Backwards",
+        "Left"
+      ]
+    },
+    "LGGridPosition": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "z": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "x",
+        "z"
+      ]
+    },
     "ZoneOverride": {
       "type": "object",
       "properties": {
@@ -46,81 +105,11 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/AreaOverride"
-          },
-          "default": []
+          }
         }
       },
       "required": [
         "AreaOverrides"
-      ],
-      "additionalProperties": false
-    },
-
-    "AreaOverride": {
-      "type": "object",
-      "properties": {
-        "PreviousCellPosition": {
-          "$ref": "#/$defs/LG_GridPosition"
-        },
-        "PreviousCellInternalAreaID": {
-          "type": "integer"
-        },
-        "LG_ExpanderID": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "PreviousCellPosition",
-        "PreviousCellInternalAreaID",
-        "LG_ExpanderID"
-      ],
-      "additionalProperties": false
-    },
-
-    "GeoOverride": {
-      "type": "object",
-      "properties": {
-        "Position": {
-          "$ref": "#/$defs/LG_GridPosition"
-        },
-        "Geomorph": {
-          "type": "string"
-        },
-        "Rotation": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "Position",
-        "Geomorph",
-        "Rotation"
-      ],
-      "additionalProperties": false
-    },
-
-    "LG_GridPosition": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "integer"
-        },
-        "z": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "x",
-        "z"
-      ],
-      "additionalProperties": false
-    },
-
-    "Complex": {
-      "type": "string",
-      "enum": [
-        "Mining",
-        "Service",
-        "Tech"
       ]
     }
   }
