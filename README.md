@@ -76,7 +76,9 @@ General format:
       // rotation of tile
       "Rotation": 90,
       // geomorph intended to be used
-      "Geomorph": "Assets/AssetPrefabs/Complex/Mining/Geomorphs/Storage/geo_64x64_mining_storage_HA_06.prefab"
+      "Geomorph": "Assets/AssetPrefabs/Complex/Mining/Geomorphs/Storage/geo_64x64_mining_storage_HA_06.prefab",
+      // altitude at which the geomorph must spawn. 0 is "Mid"
+      "Altitude": 0
     }
   ],
   // here we tell the game to load ALL the different geomorphs.
