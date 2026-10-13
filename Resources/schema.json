@@ -3,6 +3,12 @@
   "title": "LevelGenerationOverride",
   "type": "object",
   "properties": {
+    "ExtraComplexResourceToLoad": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Complex"
+      }
+    },
     "GeoOverrides": {
       "type": "array",
       "items": {
@@ -24,7 +30,8 @@
   "required": [
     "LevelLayoutID",
     "ZoneOverrides",
-    "GeoOverrides"
+    "GeoOverrides",
+    "ExtraComplexResourceToLoad"
   ],
   "$defs": {
     "AreaOverride": {
@@ -46,6 +53,14 @@
         "PreviousCellPosition",
         "PreviousCellInternalAreaID",
         "LG_ExpanderID"
+      ]
+    },
+    "Complex": {
+      "type": "string",
+      "enum": [
+        "Mining",
+        "Service",
+        "Tech"
       ]
     },
     "GeoOverride": {
