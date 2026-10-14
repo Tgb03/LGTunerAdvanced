@@ -33,7 +33,8 @@ public static class LG_ZoneJob_CreateExpandFromDataPatch
             if (GrabExpander(zone, zoneOverride, out LG_ZoneExpander newExpander, out LG_Area newBuildFromArea))
             {
                 blocked_expanders.Add(newExpander.Pointer);
-                Plugin.L.LogMessage("   Succeeded in finding connection for area");
+                if (zone.m_areas.Count == 0) { zone.m_sourceExpander = newExpander; }
+                Plugin.L.LogMessage($"   Succeeded in finding connection in zone {zone.ID} for area {zone.m_areas.Count}");
 
                 buildFromExpander = newExpander;
                 buildFromArea = newBuildFromArea;
