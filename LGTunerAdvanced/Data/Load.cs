@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using GTFO.API.Utilities;
 using LevelGeneration;
 using LevelGeneration.Core;
 
@@ -63,6 +64,31 @@ internal class LoadLevelGenerationData
                 continue;
             };
         }
+
+        var liveEdit = LiveEdit.CreateListener(path, "*.*", true);
+        liveEdit.FileChanged += LiveEditFileChanged;
+        liveEdit.StartListen();
+    }
+
+    private static void LiveEditFileChanged(LiveEditEventArgs e)
+    {
+        var path = e.FullPath;
+        if (!path.Contains("LGTunerAdvanced")) { return; }
+        string ext = Path.GetExtension(path).ToLowerInvariant();
+        if (ext != ".json" && ext != ".jsonc") { return; }
+
+        try
+        {
+            string text = File.ReadAllText(path);
+            LevelGenerationOverride level = JsonSerializer.Deserialize<LevelGenerationOverride>(text, _jsonOptions);
+            levelGenerationOverrides[level.LevelLayoutID] = level;
+
+            Plugin.L.LogInfo($"     Loaded {level.LevelLayoutID} from {e.FileName}");
+        }
+        catch (Exception error)
+        {
+            Plugin.L.LogError(error);
+        };
     }
 
     private static uint GetLayoutID(LG_Zone zone)

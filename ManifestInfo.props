@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TSName>LGTunerAdvanced</TSName>
         <TSAuthor>Tgb03</TSAuthor>
-        <TSVersion>0.0.1</TSVersion> <!-- TSVersion empty = GitInfo used instead (if available; check nuget) -->
+        <TSVersion>0.0.3</TSVersion> <!-- TSVersion empty = GitInfo used instead (if available; check nuget) -->
         <TSWebsite>https://github.com/Tgb03/LGTunerAdvanced/</TSWebsite>
         <TSDescription>Changes GTFO to use a custom level builder rather than vanilla RNG heavy system.</TSDescription>
     </PropertyGroup>
