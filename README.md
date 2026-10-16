@@ -47,7 +47,7 @@ General format:
             "z": 0
           },
           // said geomorph also only has 1 area which means internal ID is 0
-          "PreviousCellInternalAreaID": 5,
+          "PreviousCellInternalAreaID": 0,
           // we want to use the LG_Expander with id 0 in the array.
           "LG_ExpanderID": 0
         },
