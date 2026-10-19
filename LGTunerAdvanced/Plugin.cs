@@ -6,11 +6,13 @@ using BepInEx.Unity.IL2CPP;
 using Expedition;
 using GameData;
 using HarmonyLib;
+using Il2CppSystem;
 using LevelGeneration;
 using LevelGeneration.Core;
 using LGTunerAdvanced;
 using LGTunerAdvanced.Data;
 using LGTunerAdvanced.Patches;
+using LGTunerAdvanced.Render;
 using UnityEngine;
 
 [assembly: AssemblyVersion(Plugin.VERSION)]
@@ -35,8 +37,17 @@ public class Plugin : BasePlugin
     {
         L = Log;
 
+        LGTunerAdvancedConfig.Initialize(Config);
+
         _harmony.PatchAll(Assembly.GetExecutingAssembly());
         LoadLevelGenerationData.LoadDictionary();
+
+        LG_AreaExpanderRender.Register();
+
+        if (LGTunerAdvancedConfig.RenderExpanders.Value)
+        {
+            RundownManager.OnExpeditionGameplayStarted += (Il2CppSystem.Action)(() => LG_AreaExpanderRender.AddRenderer());
+        }
 
         // LG_Factory.Current.m_currentBatch.Jobs.Enqueue(new LG_ZoneJob_CreateExpandFromData());
 

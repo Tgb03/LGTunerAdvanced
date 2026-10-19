@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.4
+* Added visually showing room information
+* Added config file
+
 ## v0.0.3
 * Added hotreloading
 

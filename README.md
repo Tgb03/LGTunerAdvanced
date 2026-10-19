@@ -90,3 +90,9 @@ General format:
   ]
 }
 ```
+
+### Extra stuff:
+
+A config file is generated on first boot. If you turn on `RenderExpanders` in game it will show you expander 
+ids for the room you are in allowing you to create the json file for the level faster without the need for 
+Unity or external helpers.
