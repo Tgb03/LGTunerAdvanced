@@ -8,6 +8,24 @@ It overrides the expansion of each zone with the declared Tile position and room
 One thing to note is this mod does not allow changing the first area of any dimension because the game handles that
 specific area in a vastly different way.
 
+## Note in regards to original LGTuner
+
+There are currently 2 LGTuner versions, one made by Flowaria, the original, and one by Hirnukuono. This mod aims to 
+do allow doing everything that the original LGTuner by Flowaria does but in a different more controllable way. However
+this mod will NOT and does NOT do everything that Hirnukuono's version does as his version contains a lot of bugfixes and
+changes to geomorphs that I will not include as they fall out of the scope of this project.
+
+As such, if your level in a rundown requires LGTuner, it will work. If you have developed a level using LGTuner and want to
+continue developing it using LGTunerAdvanced you may have difficulties as it gets a bit weird with the geomorph overwritting
+but it should be fine as long as LGTuner and LGTunerAdvanced are not told to have different geos in the same position. If
+you want to develop a new level with LGTunerAdvanced only in a rundown that already contains LGTuner, everything will work as expected.
+If you want to develop a level that uses LGTuner only in a rundown that already contains LGTunerAdvanced, everything will 
+also work as expected.
+
+If you are instead using Hirnukuono's LGTuner the only difference will be that all the bug fixes and geomorph changes of LGTuner
+will be applied no matter what. LGTuner also does some optimizations for loading geomorphs which LGTunerAdvanced does not do so it
+is possible to use this fact to create the GeoOverrides in the LGTuner config and the ZoneOverrides in the LGTunerAdvanced config.
+
 ## How to use:
 
 - Download the mod.
@@ -29,6 +47,9 @@ General format:
   "LevelLayoutID": 495148404, // R1A1
   "ZoneOverrides": [
     {
+      // whether or not to ignore this zone completely in the algorithm and use
+      // vanilla default, false since we want to dictate exactly how this zone generates
+      "IgnoreZone": false,
       // override in first generated zone in this level layout
       "AreaOverrides": [
         {

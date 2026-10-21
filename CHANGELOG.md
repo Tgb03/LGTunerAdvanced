@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.5
+* Added ability to set exceptions to ignore certain zones in ZoneOverride
+
 ## v0.0.4
 * Added visually showing room information
 * Added config file

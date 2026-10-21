@@ -39,6 +39,7 @@ internal class LevelGenerationOverride
 [Serializable]
 internal class ZoneOverride
 {
+    public bool IgnoreZone = false;
     public List<AreaOverride> AreaOverrides = [];
 }
 

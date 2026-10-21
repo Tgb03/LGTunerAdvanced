@@ -120,6 +120,12 @@ internal class LoadLevelGenerationData
                 return false;
             }
 
+            if (levelGenerationOverride.ZoneOverrides[zone.IDinLayer].IgnoreZone)
+            {
+                zoneOverride = null;
+                return false;
+            }
+
             zoneOverride = levelGenerationOverride.ZoneOverrides[zone.IDinLayer];
             lastQueried = levelGenerationOverride;
         }
