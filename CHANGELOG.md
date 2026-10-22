@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.6
+* Now the mod checks every Custom/LGTunerAdvanced folder for json files that match.
+
 ## v0.0.5
 * Added ability to set exceptions to ignore certain zones in ZoneOverride
 

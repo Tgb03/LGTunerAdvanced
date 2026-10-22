@@ -2,14 +2,13 @@
     <PropertyGroup>
         <TSName>LGTunerAdvanced</TSName>
         <TSAuthor>Tgb03</TSAuthor>
-        <TSVersion>0.0.5</TSVersion> <!-- TSVersion empty = GitInfo used instead (if available; check nuget) -->
+        <TSVersion>0.0.6</TSVersion> <!-- TSVersion empty = GitInfo used instead (if available; check nuget) -->
         <TSWebsite>https://github.com/Tgb03/LGTunerAdvanced/</TSWebsite>
         <TSDescription>Changes GTFO to use a custom level builder rather than vanilla RNG heavy system.</TSDescription>
     </PropertyGroup>
     <ItemGroup>
         <!-- Add the Dependency strings here, one for each dependency -->
         <TSDependencyStrings Include="BepInEx-BepInExPack_GTFO-3.2.1" InProject="false" />
-		<TSDependencyStrings Include="dakkhuza-MTFO-4.6.3" InProject="false" />
         <!-- <TSDependencyStrings Include="Some-Other-Dependency-1.2.3" InProject="false" /> -->
     </ItemGroup>
 </Project>
