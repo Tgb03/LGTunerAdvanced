@@ -40,7 +40,7 @@ public class Plugin : BasePlugin
         LGTunerAdvancedConfig.Initialize(Config);
 
         _harmony.PatchAll(Assembly.GetExecutingAssembly());
-        LoadLevelGenerationData.LoadDictionary();
+        LoadLevelGenerationData.ResolveLoading();
 
         LG_AreaExpanderRender.Register();
 

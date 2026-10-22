@@ -32,32 +32,41 @@ internal class LoadLevelGenerationData
         lastQueried = levelGenerationOverrides[id];
     }
 
-    public static void LoadDictionary()
+    public static void ResolveLoading()
     {
-        string path = BepInEx.Paths.PluginPath +
-            "/Custom" +
-            $"/{Plugin.MOD_NAME}";
-        
-        if (!Directory.Exists(path))
+        string rootPath = BepInEx.Paths.PluginPath;
+        string[] directories = Directory.GetDirectories(rootPath, "*", SearchOption.AllDirectories);
+        var matches = directories
+            .Where(d => d.Contains(
+                Path.Combine("Custom", "LGTunerAdvanced"),
+                StringComparison.OrdinalIgnoreCase))
+            .OrderBy(Path.GetDirectoryName);
+
+        foreach (string file in matches)
         {
-            Directory.CreateDirectory(path);
+            LoadDictionary(file);
         }
+    }
 
-        Plugin.L.LogInfo($"Loading LevelGenerationOverrides from: {path}");
+    public static void LoadDictionary(string filePath)
+    {
+        Plugin.L.LogInfo($"Loading LevelGenerationOverrides from: {filePath}");
+        var dir = Directory.CreateDirectory(filePath);
 
-        foreach (string fileName in Directory.GetFiles(path)) {
-            if (fileName.EndsWith("schema.json")) { continue; }
-            string ext = Path.GetExtension(fileName).ToLowerInvariant();
-            if (ext != ".json" && ext != ".jsonc") { continue; }
+        foreach (var fileInfo in dir.GetFiles()) {
+            var extension = fileInfo.Extension;
+
+            if (fileInfo.Name.EndsWith("schema.json")) { continue; }
+            if (extension != ".json" && extension != ".jsonc") { continue; }
 
             try
             {
-                string text = File.ReadAllText(fileName);
+                string text = File.ReadAllText(fileInfo.FullName);
 
                 LevelGenerationOverride level = JsonSerializer.Deserialize<LevelGenerationOverride>(text, _jsonOptions);
                 levelGenerationOverrides[level.LevelLayoutID] = level;
 
-                Plugin.L.LogInfo($"     Loaded {level.LevelLayoutID} from {fileName}");
+                Plugin.L.LogInfo($"     Loaded {level.LevelLayoutID} from {fileInfo.FullName}");
             }
             catch (Exception e) {
                 Plugin.L.LogError(e);
@@ -65,7 +74,7 @@ internal class LoadLevelGenerationData
             };
         }
 
-        var liveEdit = LiveEdit.CreateListener(path, "*.*", true);
+        var liveEdit = LiveEdit.CreateListener(filePath, "*.*", true);
         liveEdit.FileChanged += LiveEditFileChanged;
         liveEdit.StartListen();
     }
