@@ -78,6 +78,18 @@
         },
         "Rotation": {
           "$ref": "#/$defs/GeoRotation"
+        },
+        "NorthPlug": {
+          "type": "string"
+        },
+        "EastPlug": {
+          "type": "string"
+        },
+        "SouthPlug": {
+          "type": "string"
+        },
+        "WestPlug": {
+          "type": "string"
         }
       },
       "required": [

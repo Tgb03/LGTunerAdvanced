@@ -58,6 +58,10 @@ internal class GeoOverride
     public string Geomorph;
     public GeoRotation Rotation;
     public int Altitude;
+    public string NorthPlug = "";
+    public string EastPlug = "";
+    public string SouthPlug = "";
+    public string WestPlug = "";
 }
 
 [Serializable]

@@ -99,7 +99,15 @@ General format:
       // geomorph intended to be used
       "Geomorph": "Assets/AssetPrefabs/Complex/Mining/Geomorphs/Storage/geo_64x64_mining_storage_HA_06.prefab",
       // altitude at which the geomorph must spawn. 0 is "Mid"
-      "Altitude": 0
+      "Altitude": 0,
+      // Override north plug. These plugs are ignoring the rotation so this will be the plug
+      // that represents Left in the Geomorph.
+      "NorthPlug": "Assets/AssetPrefabs/Complex/Mining/Plugs/env_plug_8mheight_flat_mining_04.prefab",
+      // Rest of the geos are left empty so vanilla system will generate the plug:
+      "EastPlug": "",
+      "SouthPlug": ""
+      // To be noted is that "WestPlug" is missing and by default 
+      // it is empty so vanilla system will generate the plug.
     }
   ],
   // here we tell the game to load ALL the different geomorphs.
